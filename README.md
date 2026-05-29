@@ -35,7 +35,7 @@ Antes de executar o sistema localmente, é necessário possuir:
 ### Clonando o Repositório
 
 bash
-git clone https://github.com/eduratoo/Flash_Store.git
+git clone https://github.com/MatheusBondezan/Flashstore---Bondezan.git
 
 cd Flash_Store
 
