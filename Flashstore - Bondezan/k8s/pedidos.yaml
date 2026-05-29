@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flash-pedidos
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flash-pedidos
+  template:
+    metadata:
+      labels:
+        app: flash-pedidos
+    spec:
+      containers:
+      - name: pedidos
+        image: eduratoo/flash-pedidos
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedidos-service
+spec:
+  selector:
+    app: flash-pedidos
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

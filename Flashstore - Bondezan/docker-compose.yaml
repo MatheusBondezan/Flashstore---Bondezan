@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: flash-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: flashstore_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api-gateway:
+    build: ./app/api-gateway
+    container_name: flash-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - flash-network
+
+  pedidos:
+    build: ./app/pedidos
+    container_name: flash-pedidos
+    depends_on:
+      - db
+    networks:
+      - flash-network
+
+  pagamentos:
+    build: ./app/pagamentos
+    container_name: flash-pagamentos
+    depends_on:
+      - db
+    networks:
+      - flash-network
+
+  estoque:
+    build: ./app/estoque
+    container_name: flash-estoque
+    depends_on:
+      - db
+    networks:
+      - flash-network
+
+networks:
+  flash-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
