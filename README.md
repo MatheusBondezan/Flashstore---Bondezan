@@ -63,3 +63,5 @@ O status esperado para os serviços é Running.
 ## 📈 Escalabilidade Horizontal
 
 A aplicação conta com configuração de Horizontal Pod Autoscaler (HPA), permitindo que o Kubernetes aumente ou reduza automaticamente a quantidade de pods conforme o consumo de CPU e memória dos serviços.
+
+LINK DO VIDEO: https://youtu.be/izG0i1osMWI
